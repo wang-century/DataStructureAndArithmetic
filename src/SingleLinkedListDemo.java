@@ -23,6 +23,9 @@ public class SingleLinkedListDemo {
         singleLinkedList.addByOrder(node2);
         singleLinkedList.addByOrder(node3);
         singleLinkedList.addByOrder(node3);
+        // 修改节点
+        HeroNode newHeroNode = new HeroNode(2, "小卢", "麒麟");
+        singleLinkedList.update(newHeroNode);
         // 打印链表
         singleLinkedList.list();
     }
@@ -86,6 +89,35 @@ class SingleLinkedList{
         }
 
     }
+
+
+    public void update(HeroNode newHeroNode){
+        // 判断是否为空
+        if(head.next == null){
+            System.out.println("链表为空");
+            return;
+        }
+        // 找到要修改的节点（根据no）
+        HeroNode temp = head.next;
+        boolean flag = false;
+        while(true){
+            if(temp == null){
+                break;  // 到达链表尾部
+            }
+            if(temp.no == newHeroNode.no){
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        if(flag){
+            temp.name = newHeroNode.name;
+            temp.nickname = newHeroNode.nickname;
+        }else{
+            System.out.printf("未找到节点%d\n",newHeroNode.no);
+        }
+    }
+
 
     /**
      * 打印链表（遍历）
