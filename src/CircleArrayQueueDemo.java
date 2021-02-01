@@ -51,6 +51,7 @@ public class CircleArrayQueueDemo {
                     break;
             }
         }
+        scanner.close();
     }
 }
 

@@ -50,7 +50,7 @@ public class ArrayQueueDemo{
                     break;
             }
         }
-        
+        scanner.close();
     }
 }
 
