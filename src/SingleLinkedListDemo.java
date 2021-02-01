@@ -26,6 +26,11 @@ public class SingleLinkedListDemo {
         // 修改节点
         HeroNode newHeroNode = new HeroNode(2, "小卢", "麒麟");
         singleLinkedList.update(newHeroNode);
+        // 删除节点
+        singleLinkedList.delete(3);
+        // 查找节点
+        HeroNode findNode = singleLinkedList.find(2);
+        System.out.println("找到节点:"+findNode);
         // 打印链表
         singleLinkedList.list();
     }
@@ -90,7 +95,32 @@ class SingleLinkedList{
 
     }
 
+    /**
+     * 查找节点
+     */
+    public HeroNode find(int no){
+        // 判断是否为空
+        if(head.next == null){
+            System.out.println("链表为空");
+            return null;
+        }
+        // 找到要修改的节点（根据no）
+        HeroNode temp = head.next;
+        while(true){
+            if(temp == null){
+                return null;  // 到达链表尾部
+            }
+            if(temp.no == no){
+                return temp;
+            }
+            temp = temp.next;
+        }
+    }
 
+
+    /**
+     * 修改节点
+     */
     public void update(HeroNode newHeroNode){
         // 判断是否为空
         if(head.next == null){
@@ -115,6 +145,37 @@ class SingleLinkedList{
             temp.nickname = newHeroNode.nickname;
         }else{
             System.out.printf("未找到节点%d\n",newHeroNode.no);
+        }
+    }
+
+    /**
+     * 删除节点（根据no）
+     */
+    public void delete(int no){
+        // 判断是否为空
+        if(head.next == null){
+            System.out.println("链表为空");
+            return;
+        }
+        // 创建辅助节点
+        HeroNode temp = head;
+        boolean flag = false;
+        // 找到要删除的节点并删除
+        while(true){
+            if(temp == null){
+                break;  // 到达链表尾部
+            }
+            if(temp.next.no == no){
+                temp.next = temp.next.next;     // 要删除的节点的前一个节点指向要删除节点的后一个节点，要删除的节点会自动被垃圾回收
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        if(flag){
+            System.out.printf("删除节点%d成功\n",no);
+        }else{
+            System.out.printf("未找到节点%d\n",no);
         }
     }
 
