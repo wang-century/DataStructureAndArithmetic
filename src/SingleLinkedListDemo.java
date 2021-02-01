@@ -3,7 +3,7 @@
  * 案例：水浒传排名（不考虑排名顺序）
  */
 
-public class SingleLinkedListDemo1 {
+public class SingleLinkedListDemo {
     public static void main(String[] args) {
         // 测试
         // 创建节点
@@ -11,12 +11,18 @@ public class SingleLinkedListDemo1 {
         HeroNode node2 = new HeroNode(2, "卢俊义", "玉麒麟");
         HeroNode node3 = new HeroNode(3, "吴用", "智多星");
         HeroNode node4 = new HeroNode(4, "林冲", "豹子头");
-        // 将节点加入链表
+        // 将节点加入链表 方式一
         SingleLinkedList singleLinkedList = new SingleLinkedList();
-        singleLinkedList.add(node1);
-        singleLinkedList.add(node2);
-        singleLinkedList.add(node3);
-        singleLinkedList.add(node4);
+        // singleLinkedList.add(node1);
+        // singleLinkedList.add(node2);
+        // singleLinkedList.add(node3);
+        // singleLinkedList.add(node4);
+        // 将节点加入链表 方式二
+        singleLinkedList.addByOrder(node1);
+        singleLinkedList.addByOrder(node4);
+        singleLinkedList.addByOrder(node2);
+        singleLinkedList.addByOrder(node3);
+        singleLinkedList.addByOrder(node3);
         // 打印链表
         singleLinkedList.list();
     }
@@ -47,6 +53,38 @@ class SingleLinkedList{
         }
         // 退出循环后，temp指向为链表的最后节点，将其指向新节点
         temp.next = heroNode;
+    }
+
+    /**
+     * 第二种添加方式：根据排名将其插入合适位置
+     * 如果添加失败则提示失败
+     *  */ 
+    public void addByOrder(HeroNode heroNode){
+        HeroNode temp = head;
+        boolean flag = false;   // 标识添加的编号是否存在
+        while(true){
+            // temp到达链表尾部
+            if(temp.next == null){
+                break;
+            }
+            // 找到位置，在temp后插入
+            if(temp.next.no>heroNode.no){
+                break;
+            }else if(temp.next.no == heroNode.no){
+                // 编号已存在
+                flag = true;
+                break;
+            }
+            temp = temp.next;   // 向后移动
+        }
+        if(flag){
+            System.out.printf("插入失败，编号%d已存在\n",heroNode.no);
+        }else{
+            // 插入节点
+            heroNode.next = temp.next;
+            temp.next = heroNode;
+        }
+
     }
 
     /**
