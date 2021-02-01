@@ -33,6 +33,13 @@ public class SingleLinkedListDemo {
         System.out.println("找到节点:"+findNode);
         // 打印链表
         singleLinkedList.list();
+        // 链表长度
+        System.out.println("链表长度:"+singleLinkedList.getLength());
+        // 获取链表的倒数第index个节点
+        System.out.println("倒数第二个节点是:"+singleLinkedList.findLastIndexNode(2));
+        // 链表逆转
+        singleLinkedList.reverse();
+        singleLinkedList.list();
     }
 }
 
@@ -92,6 +99,41 @@ class SingleLinkedList{
             heroNode.next = temp.next;
             temp.next = heroNode;
         }
+
+    }
+
+    /**
+     * 链表逆转
+     * 思路：
+     * 1.创建一个节点作为逆转后节点的节点头
+     * 2.遍历当前节点，每次都将节点放到逆转节点节点头的后面
+     * 3.将逆转后节点的节点头赋给当前节点的节点头
+     */
+    public void reverse(){
+        // 判断是否为空
+        if(head.next == null){
+            System.out.println("链表为空");
+            return;
+        }
+        // 创建逆转节点头
+        HeroNode reverseHead = new HeroNode(0,"","");
+        HeroNode temp = head.next;
+        HeroNode data;
+        reverseHead.next = temp;    // 第一个节点
+        temp = temp.next;
+        int count = 0;
+        // 遍历当前节点
+        while(true){
+            data = temp;
+            temp = temp.next;
+            System.out.println(count++);
+            data.next = reverseHead.next;
+            reverseHead.next = data;
+            if(temp.next==null){
+                break;
+            }
+        }
+        head = reverseHead;
 
     }
 
@@ -177,6 +219,48 @@ class SingleLinkedList{
         }else{
             System.out.printf("未找到节点%d\n",no);
         }
+    }
+
+    /**
+     * 获取链表长度（忽略头结点）
+     * @return 链表长度
+     */
+    public int getLength(){
+        // 链表为空
+        if(head.next == null){
+            return 0;
+        }
+        int length = 0;
+        HeroNode temp = head.next;
+        while(temp!=null){
+            length++;
+            temp = temp.next;
+        }
+        return length;
+    }
+
+    /**
+     * 获取链表中倒数第index个节点
+     * 思路：
+     * 1.先把链表从头到尾遍历，得到总长度
+     * 2.再从头开始遍历，到(总长度-index)为止
+     */
+    public HeroNode findLastIndexNode(int index){
+        // 判断链表是否为空
+        if(head.next == null){
+            System.out.println("警告：链表为空");
+            return null;
+        }
+        int size = getLength();
+        if(index>size || index<=0){
+            System.out.println("警告：索引错误");
+            return null;
+        }
+        HeroNode temp = head.next;
+        for(int i=0;i<getLength()-index;i++){
+            temp = temp.next;
+        }
+        return temp;
     }
 
 
