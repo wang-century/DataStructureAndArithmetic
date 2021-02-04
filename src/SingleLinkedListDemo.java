@@ -2,6 +2,7 @@
  * 带头结点的单链表
  * 案例：水浒传排名（不考虑排名顺序）
  */
+import java.util.Stack;
 
 public class SingleLinkedListDemo {
     public static void main(String[] args) {
@@ -40,6 +41,9 @@ public class SingleLinkedListDemo {
         // 链表逆转
         singleLinkedList.reverse();
         singleLinkedList.list();
+        // 链表逆序打印
+        System.out.println("链表逆序打印：");
+        singleLinkedList.reversePrint();
     }
 }
 
@@ -232,6 +236,30 @@ class SingleLinkedList{
         }
         return length;
     }
+
+    /**
+     * 逆序打印链表
+     * 利用栈先进后出的特点实现
+     */
+    public void reversePrint(){
+        // 链表为空
+        if(head.next==null){
+            return;
+        }
+        // 创建栈，压入各个节点
+        Stack<HeroNode> stack = new Stack<HeroNode>();
+        HeroNode cur = head.next;
+        while(cur!=null){
+            stack.push(cur);
+            cur = cur.next;
+        }
+        // 取出栈中节点并打印
+        while(stack.size()>0){
+            System.out.println(stack.pop());
+        }
+
+    }
+
 
     /**
      * 获取链表中倒数第index个节点
