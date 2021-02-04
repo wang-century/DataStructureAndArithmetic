@@ -110,31 +110,25 @@ class SingleLinkedList{
      * 3.将逆转后节点的节点头赋给当前节点的节点头
      */
     public void reverse(){
-        // 判断是否为空
-        if(head.next == null){
-            System.out.println("链表为空");
+        // 判断是否为空或者只有一个节点
+        if(head.next == null || head.next.next == null){
+            System.out.println("链表为空或者只有一个节点");
             return;
         }
+        // 定义辅助变量
+        HeroNode cur = head.next;   // 当前节点
+        HeroNode next = null;       // 下一节点
         // 创建逆转节点头
         HeroNode reverseHead = new HeroNode(0,"","");
-        HeroNode temp = head.next;
-        HeroNode data;
-        reverseHead.next = temp;    // 第一个节点
-        temp = temp.next;
-        int count = 0;
-        // 遍历当前节点
-        while(true){
-            data = temp;
-            temp = temp.next;
-            System.out.println(count++);
-            data.next = reverseHead.next;
-            reverseHead.next = data;
-            if(temp.next==null){
-                break;
-            }
+        // 遍历原来的链表，没遍历一个节点就将其取出，放在新链表的最前端
+        while(cur != null){
+            next = cur.next;    // 保存当前节点的下一个节点
+            cur.next = reverseHead.next;    
+            reverseHead.next = cur;
+            cur = next;
         }
-        head = reverseHead;
-
+        // 
+        head.next = reverseHead.next;
     }
 
     /**
@@ -271,6 +265,7 @@ class SingleLinkedList{
         // 判断链表是否为空
         if(head.next == null){
             System.out.println("警告：链表为空");
+            return;
         }
         // 创建辅助节点
         HeroNode temp = head.next;
