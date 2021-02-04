@@ -44,6 +44,17 @@ public class SingleLinkedListDemo {
         // 链表逆序打印
         System.out.println("链表逆序打印：");
         singleLinkedList.reversePrint();
+        // 链表合并
+        SingleLinkedList linkedList1 = new SingleLinkedList();
+        SingleLinkedList linkedList2 = new SingleLinkedList();
+        linkedList1.addByOrder(node1);
+        linkedList1.addByOrder(node4);
+        linkedList1.addByOrder(node2);
+        linkedList2.addByOrder(node3);
+        SingleLinkedList mergSingleLinkedList = SingleLinkedList.mergeLinkedList(linkedList1, linkedList2);
+        System.out.println("合并后的链表：");
+        mergSingleLinkedList.list();
+
     }
 }
 
@@ -258,6 +269,30 @@ class SingleLinkedList{
             System.out.println(stack.pop());
         }
 
+    }
+
+    /**
+     * 链表合并
+     * 小的链表插入到大的链表
+     * @param linkedList1   需要合并的链表1
+     * @param linkedList2   需要合并的链表2
+     * @return 合并完的链表
+     */
+    public static SingleLinkedList mergeLinkedList(SingleLinkedList linkedList1, SingleLinkedList linkedList2){
+        SingleLinkedList resuLinkedList = new SingleLinkedList();   // 存放合并完的链表
+        SingleLinkedList smallLinkedList = null;   // 指向小的链表
+        // 判断哪个链表大,大的链表赋给resuLinkedList
+        resuLinkedList = linkedList1.getLength()>linkedList2.getLength()?linkedList1:linkedList2;
+        // 判断哪个链表小,小的链表赋给smallLinkedList
+        smallLinkedList = linkedList1.getLength()<linkedList2.getLength()?linkedList1:linkedList2;
+        // 将小的链表插入到大的链表
+        HeroNode cur = smallLinkedList.head.next;
+        while(cur!=null){
+            resuLinkedList.addByOrder(cur);
+            cur = cur.next;
+        }
+        // 返回合并完的链表
+        return resuLinkedList;
     }
 
 
