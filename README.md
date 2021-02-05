@@ -8,7 +8,7 @@
     - DoubleLinkedListDemo.java     双向链表（带头结点的双向链表，增删改查）
     - JosephDemo.java               单向环形链表（约瑟夫问题）
     - ArrayStackDemo.java           栈（数组实现）
-    
+    - LinkedListStackDemo.java      栈（链表实现）
 </pre>
 
 

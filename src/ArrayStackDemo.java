@@ -1,4 +1,6 @@
-
+/**
+ * 栈的数组实现
+ */
 
 public class ArrayStackDemo{
     public static void main(String[] args) {
